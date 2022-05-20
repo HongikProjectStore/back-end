@@ -114,7 +114,7 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 
 
-#user_table 정보
+# user_table information
 class UserTable(models.Model):
     user_id = models.CharField(primary_key=True, max_length=10)
     user_password = models.CharField(max_length=50)
