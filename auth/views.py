@@ -7,16 +7,19 @@ def index(request):
 
 
 def login(request):
-    if request.method =='GET':
-        user_id = request.GET['userID']
-        user_password = request.GET['userPassword']
+    #POST 로그인 정보 받기
+    if request.method =='POST':
+        user_id = request.POST['userID']
+        user_password = request.POST['userPassword']
 
+    #로그인 시 보내주는 데이터
     response_data = {
         "userID": user_id,
         "userPassword": user_password,
         "success": False
     }
 
+    #select query를 사용하여 id, pw를 확인
     try:
         cursor = connection.cursor()
         query = "select user_id, user_password from user_table where user_id='{0}' and user_password='{1}'".format(user_id, user_password)
@@ -30,10 +33,11 @@ def login(request):
         connection.rollback()
         return JsonResponse(response_data)
 
-
+    #로그인 실패 시 success False로 보냄
     if(stocks is None):
         return JsonResponse(response_data)
 
+    #로그인 성공 시 맞는지 확인 후 success True로 보냄
     if(str(stocks[0]) == user_id and str(stocks[1] == user_password)):
         response_data = {
             "userID" : user_id,
