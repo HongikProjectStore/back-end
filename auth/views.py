@@ -5,7 +5,7 @@ from django.db import connection
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
-
+#로그인 
 def login(request):
     #POST 로그인 정보 받기
     if request.method =='POST':
@@ -23,7 +23,6 @@ def login(request):
     try:
         cursor = connection.cursor()
         query = "select user_id, user_password from user_table where user_id='{0}' and user_password='{1}'".format(user_id, user_password)
-        #query = "select user_id, user_password from user_table"
         cursor.execute(query)
         stocks = cursor.fetchone()
 
@@ -48,7 +47,7 @@ def login(request):
     else:
         return JsonResponse(response_data)
 
-
+#회원가입
 def register(request):
     #front에서 회원가입 정보 받아오기
     if request.method =='POST':
@@ -73,7 +72,6 @@ def register(request):
         query = "insert into user_table values('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', {6}, {7}, {8})".format(
             user_id, user_password, user_name, user_email, user_gender, user_age, user_image, num_go_to_store, time_to_go_to_store
         )
-        #query = "select user_id, user_password from user_table"
         cursor.execute(query)
 
 
@@ -82,11 +80,8 @@ def register(request):
     except:
         connection.rollback()
         return HttpResponse(query)
-        #return JsonResponse(response_data)
     response_data = {
         "success" : True
     }
     return JsonResponse(response_data)
 
-
-# Create your views here.
