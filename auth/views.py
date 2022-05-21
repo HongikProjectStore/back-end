@@ -5,21 +5,20 @@ from django.db import connection
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
-#로그인 
+ 
 def login(request):
-    #POST 로그인 정보 받기
+    # Using POST, get id & pw 
     if request.method =='POST':
         user_id = request.POST['userID']
         user_password = request.POST['userPassword']
 
-    #로그인 시 보내주는 데이터
     response_data = {
         "userID": user_id,
         "userPassword": user_password,
         "success": False
     }
 
-    #select query를 사용하여 id, pw를 확인
+    # Using select query, get id & pw that is matching input id & pw values.
     try:
         cursor = connection.cursor()
         query = "select user_id, user_password from user_table where user_id='{0}' and user_password='{1}'".format(user_id, user_password)
@@ -32,41 +31,43 @@ def login(request):
         connection.rollback()
         return JsonResponse(response_data)
 
-    #로그인 실패 시 success False로 보냄
+    # Check query result is empty
     if(stocks is None):
         return JsonResponse(response_data)
 
-    #로그인 성공 시 맞는지 확인 후 success True로 보냄
+    # Result is not empty, one more check id & pw is matching
     if(str(stocks[0]) == user_id and str(stocks[1] == user_password)):
         response_data = {
             "userID" : user_id,
             "userPassword" : user_password,
             "success" : True
         }
+        # When login success, send "True" flag
         return JsonResponse(response_data)
     else:
+        # When login fail, send "False" flag
         return JsonResponse(response_data)
 
-#회원가입
+
 def register(request):
-    #front에서 회원가입 정보 받아오기
+    # Using POST, get User's information for register
     if request.method =='POST':
         user_id = request.POST['userID']
         user_password = request.POST['userPassword']
         user_name = request.POST['userName']
         user_age = request.POST['userAge']
+        # Hardcoding part
         user_email = "new@new.com"
         user_gender = 'male'
         user_image = 3
         num_go_to_store = 3
         time_to_go_to_store = 3
 
-    #front로 보내기 위한 데이터
     response_data = {
         "success" : False
     }
 
-    #insert query 실행해서 회원정보를 입력, 성공 시 success를 true로 바꿔 보냄 
+    # Using insert query, insert user into table 
     try:
         cursor = connection.cursor()
         query = "insert into user_table values('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', {6}, {7}, {8})".format(
@@ -74,14 +75,51 @@ def register(request):
         )
         cursor.execute(query)
 
+        connection.commit()
+        connection.close()
+    except:
+        connection.rollback()
+         # When insert fail, Send "False" flag
+        return JsonResponse(response_data)
+    
+    response_data = {
+        "success" : True
+    }
+    # When insert success, Send "True" flag
+    return JsonResponse(response_data)
+
+
+def deleteUser(request):
+    # Using POST, get id & pw
+    if request.method =='POST':
+        user_id = request.POST['userID']
+        user_password = request.POST['userPassword']
+
+    response_data = {
+        "success" : False
+    }
+    # Using select, get pw for id
+    try:
+        cursor = connection.cursor()
+        pw_check_query = "select user_password from user_table where user_id='{0}'".format(user_id)
+        cursor.execute(pw_check_query)
+        check_pw = cursor.fetchone()
+        
+        # Before delete account, Check ID and PW
+        if(str(check_pw[0]) != user_password):
+            return JsonResponse(response_data)
+        # When check password success, Start delete query
+        query = "delete from user_table where user_id='{0}' and user_password='{1}'".format(user_id, user_password)
+        cursor.execute(query)
 
         connection.commit()
         connection.close()
     except:
         connection.rollback()
-        return HttpResponse(query)
+        return JsonResponse(response_data)
+
+    # When success delete, send "success" True
     response_data = {
         "success" : True
     }
     return JsonResponse(response_data)
-
