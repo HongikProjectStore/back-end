@@ -91,9 +91,9 @@ def register(request):
 
 def deleteUser(request):
     # Using POST, get id & pw
-    if request.method =='GET':
-        user_id = request.GET['userID']
-        user_password = request.GET['userPassword']
+    if request.method =='POST':
+        user_id = request.POST['userID']
+        user_password = request.POST['userPassword']
 
     response_data = {
         "success" : False
