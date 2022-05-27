@@ -57,8 +57,8 @@ def register(request):
         user_name = request.POST['userName']
         user_age = request.POST['userAge']
         # Hardcoding part
-        user_email = "new@new.com"
-        user_gender = 'male'
+        user_email = request.POST['userEmail']
+        user_gender = request.POST['userGender']
         user_image = 3
         num_go_to_store = 3
         time_to_go_to_store = 3
