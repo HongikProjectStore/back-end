@@ -87,6 +87,9 @@ DATABASES = {
         'PASSWORD': '!Zxc846795',
         'HOST': 'mydatabase.crpiw2eagwlo.us-east-1.rds.amazonaws.com',
         'PORT':'3306',
+        'OPTIONS':{
+            'init_command':"SET sql_mode='STRICT_TRANS_TABLES'"
+        },
     }
 }
 
