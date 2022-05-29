@@ -84,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'wowstore',
         'USER': 'admin',
-        'PASSWORD': '!zxc846795',
+        'PASSWORD': '!Zxc846795',
         'HOST': 'mydatabase.crpiw2eagwlo.us-east-1.rds.amazonaws.com',
         'PORT':'3306',
     }
