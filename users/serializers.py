@@ -53,7 +53,7 @@ class  SignUpSerializer(serializers.ModelSerializer) :    # SignIn Serializer
         
         user.set_password(validated_data['password'])
         user.save()
-        token = Token.objects.create(user = user) # Token 생성 관련
+        token = Token.objects.create(user = user) 
         return user
 
 class SignInSerializer(serializers.Serializer):
