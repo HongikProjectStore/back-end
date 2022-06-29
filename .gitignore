@@ -176,4 +176,4 @@ cython_debug/
 
 # End of https://www.toptal.com/developers/gitignore/api/django
 
-wowstore/my_settings.py
+# wowstore/my_settings.py

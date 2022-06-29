@@ -11,7 +11,12 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from .my_settings import MY_SECRET, MY_DATABASES
 import os
+
+SECRET_KEY = MY_SECRET['SECRET_KEY']
+
+DATABASES = MY_DATABASES
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,8 +25,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-mww(3x^#-*l7@5&8!5v@i(d+zmd$q-i6anceahe$zr_8x&2ax-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -78,24 +81,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'wowstore.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'wowstore',
-        'USER': 'admin',
-        'PASSWORD': '!Zxc846795',
-        'HOST': 'mydatabase.crpiw2eagwlo.us-east-1.rds.amazonaws.com',
-        'PORT':'3306',
-        'OPTIONS':{
-            'init_command':"SET sql_mode='STRICT_TRANS_TABLES'"
-        },
-    }
-}
 
 
 # Password validation
