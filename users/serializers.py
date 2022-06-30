@@ -77,4 +77,4 @@ class SignInSerializer(serializers.Serializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = MyUsers
-        fields =  ('username','password', 'name','email','age','gender','image','num_go_to_store','time_to_go_to_store',)  
+        fields =  ('username', 'name','email','image')  
