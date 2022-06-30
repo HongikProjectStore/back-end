@@ -10,7 +10,6 @@ __pycache__/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-media
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
 # in your Git repository. Update and uncomment the following line accordingly.
@@ -56,6 +55,7 @@ pip-log.txt
 pip-delete-this-directory.txt
 
 # Unit test / coverage reports
+
 htmlcov/
 .tox/
 .nox/
@@ -177,3 +177,4 @@ cython_debug/
 # End of https://www.toptal.com/developers/gitignore/api/django
 
 # wowstore/my_settings.py
+# media
