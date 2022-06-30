@@ -46,7 +46,6 @@ class  SignUpSerializer(serializers.ModelSerializer) :    # SignIn Serializer
             email = validated_data['email'],
             gender = validated_data['gender'],
             age = validated_data['age'],
-            image = 1,
             num_go_to_store = 2,
             time_to_go_to_store = 3,
         )
@@ -73,4 +72,9 @@ class SignInSerializer(serializers.Serializer):
             return token
         raise serializers.ValidationError(
             {"error" : "Unable to log in with provided credentials."})
-    
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MyUsers
+        fields =  ('username','password', 'name','email','age','gender','image','num_go_to_store','time_to_go_to_store',)  

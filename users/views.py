@@ -2,7 +2,7 @@ from .models import MyUsers
 from rest_framework import generics, status
 from rest_framework.response import Response
 
-from .serializers import SignUpSerializer, SignInSerializer
+from .serializers import SignUpSerializer, SignInSerializer, ProfileSerializer
 
 # Create your views here.
 class SignUpView(generics.CreateAPIView) :
@@ -17,3 +17,7 @@ class SignInView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         token = serializer.validated_data
         return Response({"token":token.key}, status=status.HTTP_200_OK)
+
+class ProfileView(generics.RetrieveUpdateAPIView):
+    queryset = MyUsers.objects.all()
+    serializer_class = ProfileSerializer
