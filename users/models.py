@@ -28,3 +28,4 @@ class MyUsers(AbstractUser) :
 def create_user_profile(sender, instance,created, **kwargs):
     if created:
         MyUsers.objects.create(user=instance)
+
