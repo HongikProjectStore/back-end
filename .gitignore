@@ -178,4 +178,4 @@ cython_debug/
 
 # wowstore/my_settings.py
 # media
-# security
+security
